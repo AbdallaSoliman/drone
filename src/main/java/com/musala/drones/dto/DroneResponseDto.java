@@ -1,8 +1,8 @@
 package com.musala.drones.dto;
 
 import com.googlecode.jmapper.annotations.JGlobalMap;
-import com.musala.drones.model.Model;
-import com.musala.drones.model.State;
+import com.musala.drones.model.enumerate.Model;
+import com.musala.drones.model.enumerate.State;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -8,7 +8,7 @@ import com.musala.drones.message.util.MessageUtilities;
 import com.musala.drones.model.Drone;
 import com.musala.drones.model.DroneMedication;
 import com.musala.drones.model.Medication;
-import com.musala.drones.model.State;
+import com.musala.drones.model.enumerate.State;
 import com.musala.drones.repository.DroneRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

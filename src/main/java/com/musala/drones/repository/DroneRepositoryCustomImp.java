@@ -2,7 +2,7 @@ package com.musala.drones.repository;
 
 import com.musala.drones.dto.DroneResponseDto;
 import com.musala.drones.model.Drone;
-import com.musala.drones.model.State;
+import com.musala.drones.model.enumerate.State;
 import org.hibernate.query.criteria.internal.CriteriaQueryImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

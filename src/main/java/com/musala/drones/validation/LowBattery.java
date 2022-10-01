@@ -10,13 +10,13 @@ import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Constraint(validatedBy = CanLoadDroneValidator.class)
+@Constraint(validatedBy = LowBatteryValidator.class)
 @Target({METHOD, CONSTRUCTOR})
 @Retention(RUNTIME)
 @Documented
-public @interface CanLoadDrone {
+public @interface LowBattery {
 
-    String message() default "CanLoadDrone";
+    String message() default "LowBattery";
 
     Class<?>[] groups() default {};
 

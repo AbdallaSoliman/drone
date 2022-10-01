@@ -1,5 +1,7 @@
 package com.musala.drones.model;
 
+import com.musala.drones.model.enumerate.Model;
+import com.musala.drones.model.enumerate.State;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;

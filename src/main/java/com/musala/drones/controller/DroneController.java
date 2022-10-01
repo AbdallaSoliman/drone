@@ -3,10 +3,10 @@ package com.musala.drones.controller;
 import com.musala.drones.dto.DroneRequestDto;
 import com.musala.drones.dto.DroneResponseDto;
 import com.musala.drones.dto.LoadingMedicationDto;
-import com.musala.drones.model.Drone;
 import com.musala.drones.model.Medication;
 import com.musala.drones.service.DroneService;
-import com.musala.drones.validation.CanLoadDrone;
+import com.musala.drones.validation.CanHandleWeight;
+import com.musala.drones.validation.LowBattery;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +34,8 @@ public class DroneController {
   }
 
   @PostMapping("{id}/medication")
-  @CanLoadDrone
+  @CanHandleWeight
+  @LowBattery
   public ResponseEntity<?> loadingMedicationItems(
       @PathVariable UUID id,
       @Validated @RequestBody List<LoadingMedicationDto> loadingMedicationDtoList) {
