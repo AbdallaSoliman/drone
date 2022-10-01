@@ -1,4 +1,4 @@
-package com.musala.drones.message;
+package com.musala.drones.message.constant;
 
 public enum MessageType {
   INFO,

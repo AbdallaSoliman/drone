@@ -20,8 +20,9 @@ public class DroneController {
   }
 
   @PostMapping
-  public ResponseEntity<?> registeringDrone( @RequestBody DroneDto droneDto) {
+  public ResponseEntity<?> registeringDrone(@Validated @RequestBody DroneDto droneDto) {
 
     return droneService.registeringDrone(droneDto);
   }
+
 }

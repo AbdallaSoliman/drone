@@ -4,7 +4,7 @@
  */
 package com.musala.drones.message.util;
 
-import com.musala.drones.message.MessageType;
+import com.musala.drones.message.constant.MessageType;
 import com.musala.drones.message.RestMessage;
 import com.musala.drones.message.constant.MessagesCode;
 import org.springframework.cache.annotation.Cacheable;
@@ -33,7 +33,7 @@ public class MessageUtilities {
     }
 
     public ResponseEntity<RestMessage> getSuccessCustomMessage(String operationName) {
-      return new ResponseEntity<>(new RestMessage(getFormattedMessage(MessagesCode.SUCCESS_OPERATION_CUSTOM,getMessage(operationName))), HttpStatus.OK);
+      return new ResponseEntity<>(new RestMessage(getFormattedMessage(MessagesCode.SUCCESS_OPERATION_CUSTOM,getMessage(operationName)),MessageType.SUCCESS), HttpStatus.OK);
     }
 
     public ResponseEntity<RestMessage> getSuccessMessage(String msg) {
@@ -41,10 +41,10 @@ public class MessageUtilities {
     }
 
     public ResponseEntity<RestMessage> getFormattedSuccessMessage(String messageKey, Object... objects) {
-        return new ResponseEntity<>(new RestMessage(getFormattedMessage(messageKey,objects)), HttpStatus.OK);
+        return new ResponseEntity<>(new RestMessage(getFormattedMessage(messageKey,objects),MessageType.SUCCESS), HttpStatus.OK);
     }
 
     public ResponseEntity<RestMessage> getFailMessage(String msg) {
-        return new ResponseEntity<>(new RestMessage(getMessage(msg)), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new RestMessage(getMessage(msg),MessageType.VALIDATION), HttpStatus.BAD_REQUEST);
     }
 }

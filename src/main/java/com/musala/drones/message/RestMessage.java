@@ -1,6 +1,7 @@
 package com.musala.drones.message;
 
 
+import com.musala.drones.message.constant.MessageType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,9 +18,6 @@ public class RestMessage {
         this.messages = messages;
     }
 
-    public RestMessage(String message) {
-        this.header = message;
-    }
 
     public RestMessage(String header, MessageType messageType) {
         this.header = header;
