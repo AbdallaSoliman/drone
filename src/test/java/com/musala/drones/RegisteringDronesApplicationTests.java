@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
       "spring.flyway.enabled=false"
     })
 @AutoConfigureMockMvc
-class DronesApplicationTests {
+class RegisteringDronesApplicationTests {
   @Autowired private MockMvc mockMvc;
   @Autowired private ObjectMapper objectMapper;
   @Autowired private DroneRepository droneRepository;
