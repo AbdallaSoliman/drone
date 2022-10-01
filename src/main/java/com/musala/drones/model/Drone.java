@@ -9,18 +9,17 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import java.util.List;
-import java.util.UUID;
+import java.io.Serializable;
+import java.util.*;
 
 @Entity
 @Getter
 @Setter
-public class Drone {
+public class Drone implements Serializable {
 
   @Id
   @GeneratedValue(generator = "UUID")
   @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-  @Column(name = "id", updatable = false, nullable = false)
   @ColumnDefault("random_uuid()")
   @Type(type = "uuid-char")
   private UUID id;
@@ -43,5 +42,38 @@ public class Drone {
   @Column(length = 10)
   private State state;
 
-  @ManyToMany private List<Medication> medicationList;
+  @OneToMany(mappedBy = "drone", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+  private Set<DroneMedication> droneMedications = new HashSet<>();
+
+  public void addMedication(Medication medication, Integer count) {
+    boolean newMedication = true;
+    for (DroneMedication droneMedication : droneMedications) {
+      if (droneMedication.getDrone().equals(this)
+              && droneMedication.getMedication().getId().equals(medication.getId())) {
+        droneMedication.setCount(droneMedication.getCount() + count);
+        newMedication = false;
+      }
+    }
+    if (newMedication) {
+      DroneMedication droneMedication = new DroneMedication(this, medication, count);
+      droneMedications.add(droneMedication);
+    }
+  }
+
+  public void removeMedication(Medication medication, Integer count) {
+    for (Iterator<DroneMedication> iterator = droneMedications.iterator(); iterator.hasNext(); ) {
+      DroneMedication droneMedication = iterator.next();
+
+      if (droneMedication.getDrone().equals(this)
+          && droneMedication.getMedication().getId().equals(medication.getId())) {
+        if (droneMedication.getCount() > count) {
+          droneMedication.setCount(droneMedication.getCount() - count);
+        } else {
+          iterator.remove();
+          droneMedication.setDrone(null);
+          droneMedication.setMedication(null);
+        }
+      }
+    }
+  }
 }

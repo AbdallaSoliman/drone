@@ -11,18 +11,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
-public class Medication {
+public class Medication implements Serializable {
   @Id
   @GeneratedValue(generator = "UUID")
   @GenericGenerator(
           name = "UUID",
           strategy = "org.hibernate.id.UUIDGenerator")
-  @Column(name = "id", updatable = false, nullable = false)
   @ColumnDefault("random_uuid()")
   @Type(type = "uuid-char")
   private UUID id;

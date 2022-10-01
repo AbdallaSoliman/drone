@@ -10,12 +10,13 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JGlobalMap
-public class DroneDto {
+public class DroneRequestDto implements Serializable {
   @Size(max = 100,message = "serial size must be between 0 and {max}")
   private String serial;
 

@@ -1,7 +1,7 @@
 package com.musala.drones;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.musala.drones.dto.DroneDto;
+import com.musala.drones.dto.DroneRequestDto;
 import com.musala.drones.model.Drone;
 import com.musala.drones.model.Medication;
 import com.musala.drones.model.Model;
@@ -37,13 +37,13 @@ class DronesApplicationTests {
   @Test
   void registeringDrone() throws Exception {
     String serial = "qewwe3142ewqeq";
-    DroneDto droneDto = new DroneDto(serial, Model.CRUISER_WEIGHT, 10f, 100f, State.LOADED);
+    DroneRequestDto droneRequestDto = new DroneRequestDto(serial, Model.CRUISER_WEIGHT, 10f, 100f, State.LOADED);
 
     mockMvc
         .perform(
             post("/api/drone")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(droneDto)))
+                .content(objectMapper.writeValueAsString(droneRequestDto)))
         .andExpect(status().isOk());
 
     Drone droneEntity = droneRepository.findBySerial(serial);
