@@ -29,12 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(
-    properties = {
-      "spring.jpa.hibernate.ddl-auto=create-drop",
-      "spring.liquibase.enabled=false",
-      "spring.flyway.enabled=false"
-    })
+@SpringBootTest
 @AutoConfigureMockMvc
 class LoadedMedicationItemsApplicationTests {
   @Autowired private MockMvc mockMvc;

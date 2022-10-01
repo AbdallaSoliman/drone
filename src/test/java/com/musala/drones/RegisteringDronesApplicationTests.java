@@ -21,12 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest(
-    properties = {
-      "spring.jpa.hibernate.ddl-auto=create-drop",
-      "spring.liquibase.enabled=false",
-      "spring.flyway.enabled=false"
-    })
+@SpringBootTest
 @AutoConfigureMockMvc
 class RegisteringDronesApplicationTests {
   @Autowired private MockMvc mockMvc;
