@@ -28,4 +28,18 @@ class DroneBatteryLevelApplicationTests {
         .andExpect(status().isOk())
             .andExpect(content().string("38.0"));
  }
+    @Test
+    void InvalidIdDroneIdExists() throws Exception {
+    // Drone with not Invalid id (not at database )
+    mockMvc
+        .perform(
+            get("/api/drone/{id}/battery-capacity", "7ce29cd9-19cd-43b2-bc92-4970efb670ce")
+                .contentType(MediaType.APPLICATION_JSON))
+        .andDo(print())
+        .andExpect(status().isBadRequest())
+        .andExpect(
+            content()
+                .json(
+                    "{\"header\":\"Constraint Violation\",\"messageType\":\"VALIDATION\",\"messages\":[\"There is no drone with this id\"]}"));
+    }
 }
