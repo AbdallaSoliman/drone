@@ -6,6 +6,7 @@ import com.musala.drones.dto.LoadingMedicationDto;
 import com.musala.drones.model.Medication;
 import com.musala.drones.service.DroneService;
 import com.musala.drones.validation.CanHandleWeight;
+import com.musala.drones.validation.DroneIdExists;
 import com.musala.drones.validation.LowBattery;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -83,6 +84,7 @@ public class DroneController {
           @Parameter(
               example = "683f6a30-3459-4b6d-bd80-7558d9a6f408",
               description = "id for drone serial 7")
+          @DroneIdExists
           UUID id,
       @Validated @RequestBody List<LoadingMedicationDto> loadingMedicationDtoList) {
 
@@ -100,6 +102,7 @@ public class DroneController {
           @Parameter(
               example = "b7f799ad-585a-4404-a94b-e6c78c841b6c",
               description = "id for drone with serial 10,we loading drone with default data")
+          @DroneIdExists
           UUID id) {
     return droneService.getMedicationItems(id);
   }
@@ -120,12 +123,15 @@ public class DroneController {
   @Operation(
       operationId = "getBatteryCapacity",
       summary = "get BatteryCapacity by drone id",
-      description =
-          "returning float number represent BatteryCapacity percentage")
+      description = "returning float number represent BatteryCapacity percentage")
   @GetMapping("{id}/battery-capacity")
-  public Float getBatteryCapacity(@PathVariable    @Parameter(
-          example = "683f6a30-3459-4b6d-bd80-7558d9a6f408",
-          description = "id for drone serial 7 -> 80% ") UUID id) {
+  public Float getBatteryCapacity(
+      @PathVariable
+          @Parameter(
+              example = "683f6a30-3459-4b6d-bd80-7558d9a6f408",
+              description = "id for drone serial 7 -> 80% ")
+          @DroneIdExists
+          UUID id) {
     return droneService.getBatteryCapacity(id);
   }
 }
