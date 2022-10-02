@@ -18,7 +18,7 @@ public class AudiLogService {
     this.auditLogRepository = auditLogRepository;
   }
 
-  @Scheduled(fixedRate = 200000000)
+  @Scheduled(fixedRateString ="${CheckDronesBatteryLevels.Scheduled.fixedRate}", initialDelay=1000)
   public void checkDronesBatteryLevels() {
     auditLogRepository.saveAll(
         droneRepository.findAll().stream()

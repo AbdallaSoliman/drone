@@ -3,6 +3,7 @@ package com.musala.drones.dto;
 import com.googlecode.jmapper.annotations.JGlobalMap;
 import com.musala.drones.model.enumerate.Model;
 import com.musala.drones.model.enumerate.State;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @JGlobalMap
 public class DroneRequestDto implements Serializable {
+  @Schema(example = "101")
   @Size(max = 100,message = "serial size must be between 0 and {max}")
   private String serial;
 

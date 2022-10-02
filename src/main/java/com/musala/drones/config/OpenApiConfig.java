@@ -15,12 +15,6 @@ public class OpenApiConfig implements WebMvcConfigurer {
   public OpenAPI springShopOpenAPI() {
 
     return new OpenAPI()
-        .info(
-            new Info()
-                .title("Drone API")
-                .description("Spring application")
-                .version("v0.0.1"));
+        .info(new Info().title("Drone API").description("Spring application").version("v0.0.1"));
   }
-
-
 }
