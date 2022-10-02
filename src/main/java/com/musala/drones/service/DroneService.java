@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class DroneService {
@@ -42,7 +43,7 @@ public class DroneService {
     List<DroneMedication> droneMedications =
         loadingMedicationDtoList.stream()
             .map(elm -> droneMedicationLoadingMedicationDtoJMapper.getDestination(elm))
-            .toList();
+            .collect(Collectors.toList());
     droneMedications.forEach(elm -> drone.get().addMedication(elm.getMedication(), elm.getCount()));
     droneRepository.save(drone.get());
     return new MessageUtilities()
@@ -52,7 +53,7 @@ public class DroneService {
   public List<Medication> getMedicationItems(UUID id) {
     return droneRepository.findById(id).get().getDroneMedications().stream()
         .map(DroneMedication::getMedication)
-        .toList();
+        .collect(Collectors.toList());
   }
 
   public Page<DroneResponseDto> getAvailableDronesForLoading(Pageable pageable) {

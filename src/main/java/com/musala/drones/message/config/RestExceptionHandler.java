@@ -22,6 +22,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class RestExceptionHandler {
@@ -49,9 +50,9 @@ public class RestExceptionHandler {
     String header = messageSource.getMessage(result.getObjectName(), null, locale);
     List<String> errorMessages =
         result.getAllErrors().stream()
-            .filter(elm-> elm.getDefaultMessage()!=null)
+            .filter(elm -> elm.getDefaultMessage() != null)
             .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .toList();
+            .collect(Collectors.toList());
     return getExceptionsResponse(ex, header, errorMessages);
   }
 
@@ -63,7 +64,7 @@ public class RestExceptionHandler {
     List<String> errorMessages =
         ex.getConstraintViolations().stream()
             .map(ConstraintViolation::getMessage)
-                .toList();
+            .collect(Collectors.toList());
     return getExceptionsResponse(ex, header, errorMessages);
   }
 
@@ -71,15 +72,14 @@ public class RestExceptionHandler {
   public ResponseEntity<RestMessage> handleExceptions(
       TransactionSystemException ex, Locale locale) {
 
-    if (ex.getCause().getCause() instanceof ConstraintViolationException constraintViolationException) {
-      return handleExceptions(constraintViolationException, locale);
+    if (ex.getCause().getCause() instanceof ConstraintViolationException) {
+      return handleExceptions((ConstraintViolationException) ex.getCause().getCause(), locale);
     } else {
       String header =
           messageSource.getMessage(ExceptionCode.CONSTRAINT_VIOLATION_EXCEPTION, null, locale);
       return getExceptionsResponse(ex, header);
     }
   }
-
 
   @ExceptionHandler(ValidationException.class)
   public ResponseEntity<RestMessage> handleExceptions(ValidationException ex, Locale locale) {

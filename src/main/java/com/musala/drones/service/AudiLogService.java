@@ -6,6 +6,8 @@ import com.musala.drones.repository.DroneRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+
 @Service
 public class AudiLogService {
   private final DroneRepository droneRepository;
@@ -16,11 +18,11 @@ public class AudiLogService {
     this.auditLogRepository = auditLogRepository;
   }
 
-  @Scheduled(fixedRate = 20000)
+  @Scheduled(fixedRate = 200000000)
   public void checkDronesBatteryLevels() {
     auditLogRepository.saveAll(
         droneRepository.findAll().stream()
             .map(elm -> new AuditLog(elm, elm.getBatteryCapacity()))
-            .toList());
+            .collect(Collectors.toList()));
   }
 }

@@ -14,6 +14,7 @@ import javax.validation.constraintvalidation.ValidationTarget;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @SupportedValidationTarget(ValidationTarget.PARAMETERS)
 public class CanHandleWeightValidator implements ConstraintValidator<CanHandleWeight, Object[]> {
@@ -43,7 +44,7 @@ public class CanHandleWeightValidator implements ConstraintValidator<CanHandleWe
       List<LoadingMedicationDto> loadingMedicationDtoList = (List<LoadingMedicationDto>) value[1];
       List<Medication> medicationList =
           medicationRepository.findAllById(
-              loadingMedicationDtoList.stream().map(LoadingMedicationDto::getId).toList());
+              loadingMedicationDtoList.stream().map(LoadingMedicationDto::getId).collect(Collectors.toList()));
 
       Double newWeight =
           medicationList.stream()
